@@ -1,0 +1,8 @@
+FROM node:12-slim
+WORKDIR /srv/www/site
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN apt-get update && apt-get install -y git nano
+RUN npm install -g nodemon 1>/dev/null 2>&1
+RUN npm i
+COPY . .
+CMD npm run start:dev

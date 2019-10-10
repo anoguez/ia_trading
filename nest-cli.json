@@ -1,0 +1,11 @@
+{
+  "language": "ts",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "projects": {
+    "service": {
+      "root": "libs/service",
+      "sourceRoot": "libs/service/src"
+    }
+  }
+}
