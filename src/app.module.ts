@@ -2,12 +2,12 @@ import { Module, OnModuleInit } from "@nestjs/common";
 import { CoreModule } from "./_core/core.module";
 import { Connection } from 'typeorm';
 import { ModuleRef } from "@nestjs/core";
-import { TradeStatisticModule } from "./trade_statistic/trade-statistic.module";
+import { TradeForecastModule } from "./trade_forecast/trade-forecast.module";
 
 @Module({
   imports: [
     CoreModule,
-    TradeStatisticModule
+    TradeForecastModule
   ],
   providers: [],
 })
