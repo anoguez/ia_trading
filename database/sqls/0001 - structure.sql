@@ -23,17 +23,21 @@
 # Dump of table accesstoken
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `trade_statisct`;
+DROP TABLE IF EXISTS `trade_forecast`;
 
-CREATE TABLE `trade_statisct` (
+CREATE TABLE `trade_forecast` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `symbol` VARCHAR(50) NOT NULL,
-  `date` DATETIME NOT NULL,
-  `order_type` ENUM('BUY', 'SELL') NOT NULL,
-  `price` DECIMAL(20,2) NOT NULL,
+  `date` DATETIME NOT NULL DEFAULT NOW(), 
+  `open` DECIMAL(20,5) NOT NULL,
+  `high` DECIMAL(20,5) NOT NULL,
+  `low` DECIMAL(20,5) NOT NULL,
+  `close` DECIMAL(20,5) NOT NULL,
   `graphic_time` ENUM('1M', '5M', '10M', '12M', '15M', '30M', '1H', '3H', '8H', '1D') NOT NULL,
+  `ma1_value` DECIMAL(20,5) NOT NULL,
+  `ma2_value` DECIMAL(20,5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

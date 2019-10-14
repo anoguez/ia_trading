@@ -11,8 +11,8 @@ services:
     depends_on: 
       - database
     volumes:
-      - ./volumes/backend:/data/site/uploads
-      - ./logs:/srv/www/site/logs
+      - ./volumes/backend:/data/ia_trading/uploads
+      - ./logs:/srv/www/ia_trading/logs
 
   database:
     container_name: ia_trading.vm-database

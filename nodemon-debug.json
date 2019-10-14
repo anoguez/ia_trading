@@ -1,5 +1,5 @@
 {
-  "watch": ["src"],
+  "watch": ["./src"],
   "ext": "ts",
   "ignore": ["src/**/*.spec.ts"],
   "exec": "kill -9 $(lsof -i :9229 | tail -n 1 | awk '{print $2}') 2>/dev/null ; node --inspect=0.0.0.0:9229 -r ts-node/register -r tsconfig-paths/register src/main.ts"

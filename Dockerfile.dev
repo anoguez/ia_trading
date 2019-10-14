@@ -1,5 +1,5 @@
 FROM node:12-slim
-WORKDIR /srv/www/site
+WORKDIR /srv/www/ia_trading
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN apt-get update && apt-get install -y git nano
 RUN npm install -g nodemon 1>/dev/null 2>&1

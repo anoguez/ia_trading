@@ -36,8 +36,8 @@ async function bootstrap(): Promise<void> {
   });
   if (process.env.NODE_ENV !== "prod") {
     const options = new DocumentBuilder()
-      .setTitle("Core CMS")
-      .setDescription("nodo Core CMS project")
+      .setTitle("IA Trading")
+      .setDescription("IA trading")
       .setVersion("1.0")
       .addBearerAuth()
       .build();

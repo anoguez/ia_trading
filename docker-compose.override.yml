@@ -10,8 +10,8 @@ services:
       dockerfile: Dockerfile.dev
     command: npm run start:debug
     volumes:
-      - ./src:/srv/www/site/src
-      - ./config:/srv/www/site/config
+      - ./src:/srv/www/ia_trading/src
+      - ./config:/srv/www/ia_trading/config
 
   database:
     ports:
