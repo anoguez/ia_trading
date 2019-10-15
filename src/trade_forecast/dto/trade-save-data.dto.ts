@@ -1,11 +1,11 @@
 import { TradeForecastEntity } from "src/trade_forecast/trade-forecast.entity";
 import { IsNumber, IsString, IsDate, IsInt, IsNumberString, IsEnum } from 'class-validator';
 import { Type, Transform } from 'class-transformer';
-import { DateTransformer } from "./date.transformer";
-import { EnumTransformer } from "./enum.transformer";
-import { GraphicTimeEnum } from "./graphic.enum";
+import { DateTransformer } from "../../common/date.transformer";
+import { EnumTransformer } from "../../common/enum.transformer";
+import { GraphicTimeEnum } from "../../common/graphic.enum";
 
-export class TradeForecastDTO {
+export class TradeSaveDataDTO {
 
   @IsString()
   readonly symbol: string;

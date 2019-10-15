@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { TradeForecastInput } from "src/common/trade-forecast.input";
+import { TradeForecastInput } from "src/trade_forecast/dto/trade-save-data.dto";
 import { TradeForecastEntity } from "../trade-forecast.entity";
 
 @Injectable()
