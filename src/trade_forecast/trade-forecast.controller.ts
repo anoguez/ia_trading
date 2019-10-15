@@ -7,9 +7,14 @@ export class TradeForecastController {
 
   constructor(public service: TradeForecastService) { }
 
-  @Post()
-  test(@Body() inputData?): Promise<Object> {
-    return this.service.test(inputData);
+  @Post("preview")
+  getPreview(@Body() inputData?): Promise<Object> {
+    return this.service.getPreview(inputData);
+  }
+
+  @Post("save")
+  save(@Body() inputData: TradeForecastDTO): Promise<Object> {
+    return this.service.save(inputData);
   }
 
 }

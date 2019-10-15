@@ -1,26 +1,44 @@
 import { TradeForecastEntity } from "src/trade_forecast/trade-forecast.entity";
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString, IsDate, IsInt, IsNumberString, IsEnum } from 'class-validator';
+import { Type, Transform } from 'class-transformer';
+import { DateTransformer } from "./date.transformer";
+import { EnumTransformer } from "./enum.transformer";
+import { GraphicTimeEnum } from "./graphic.enum";
 
 export class TradeForecastDTO {
 
   @IsString()
   readonly symbol: string;
 
+  @Transform(value => DateTransformer(value))
+  @IsDate()
+  readonly date: Date;
+
+  @IsEnum(GraphicTimeEnum)
+  @Transform(value => EnumTransformer(value, GraphicTimeEnum))
+  readonly graphic_time;
+
+  @Type(() => Number)
   @IsNumber()
   readonly open: number;
 
+  @Type(() => Number)
   @IsNumber()
   readonly high: number;
 
+  @Type(() => Number)
   @IsNumber()
   readonly low: number;
 
+  @Type(() => Number)
   @IsNumber()
   readonly close: number;
 
+  @Type(() => Number)
   @IsNumber()
   readonly ma1_value: number;
 
+  @Type(() => Number)
   @IsNumber()
   readonly ma2_value: number;
 }

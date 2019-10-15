@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { OrderTypeEnum } from 'src/common/order.enum';
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsEnum } from 'class-validator';
+import { GraphicTimeEnum } from 'src/common/graphic.enum';
 
 @Entity('trade_forecast')
 export class TradeForecastEntity {
@@ -9,10 +9,13 @@ export class TradeForecastEntity {
   id: number;
 
   @Column()
-  symbol: string;  
+  symbol: string;
 
   @Column()
-  graphic_time: string;
+  date: Date;
+
+  @IsEnum(GraphicTimeEnum)
+  graphic_time: GraphicTimeEnum;
 
   @Column()
   @IsNumber()

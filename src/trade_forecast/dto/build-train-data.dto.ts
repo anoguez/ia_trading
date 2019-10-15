@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { TradeForecastInput } from "src/common/trade-forecast.input";
-import { OrderTypeEnum } from "src/common/order.enum";
 import { TradeForecastEntity } from "../trade-forecast.entity";
 
 @Injectable()
@@ -40,9 +39,4 @@ export class BuildTrainDataDTO {
     return a;
   }
 
-}
-
-export interface TrainTemplateInterface {
-  input: number[];
-  output: number[]
 }
