@@ -15,8 +15,8 @@ export class TradeForecastController {
   }
  
   @Post("forecast")
-  getForecast(@Body() inputData: TradeForecastDTO): Promise<Object> {
-    return this.service.getForecast(inputData);
+  getForecast(): Promise<Object> {
+    return this.service.getForecast();
   }
 
   @Post("save")
