@@ -42,16 +42,16 @@ export class TradeForecastService {
       errorThresh: 0.02
     });
 
-    const checkData = {
+    const checkData = this.buildTrainDataDTO.scaleDown({
       open: inputData.open,
       high: inputData.high,
       low: inputData.low,
       close: inputData.close,
       ma1_value: inputData.ma1_value,
       ma2_value: inputData.ma2_value
-    };
-
-    return this.buildTrainDataDTO.scaleUp(net.run(checkData), rawData[0]);
+    });
+ 
+    return this.buildTrainDataDTO.scaleUp(net.run([checkData]), rawData[0]);
   }
 
   async getForecast(inputData: TradeForecastDTO): Promise<Object> {
