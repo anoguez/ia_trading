@@ -3,7 +3,7 @@ import { TradeForecastInput } from "src/trade_forecast/dto/trade-save-data.dto";
 import { TradeForecastEntity } from "../trade-forecast.entity";
 
 @Injectable()
-export class BuildTrainDataDTO {
+export class TradeUtilsDTO {
 
   async buildData(results: TradeForecastEntity[]) {
 
@@ -37,6 +37,14 @@ export class BuildTrainDataDTO {
     }
 
     return a;
+  }
+
+  chunkArray(array: Array<any>, chunkSize: number = 5): Array<any> {
+    let trainingData = [];
+    for (let i = 0, j = array.length; i < j; i += chunkSize) {
+      trainingData.push(array.slice(i, i + chunkSize));
+    }
+    return trainingData;
   }
 
 }

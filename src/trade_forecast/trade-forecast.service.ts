@@ -2,10 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TradeForecastEntity } from './trade-forecast.entity';
-import { BuildTrainDataDTO } from './dto/build-train-data.dto';
+import { TradeUtilsDTO } from './dto/build-train-data.dto';
 import { BrainJsLib } from 'src/_core/brainjs/brainjs.lib';
 import { TradePreviewDTO } from './dto/trade-preview.dto';
-import { TradeForecastDTO } from './dto/trade-forecast.dto';
 import { TradeSaveDataDTO } from './dto/trade-save-data.dto';
 
 @Injectable()
@@ -13,7 +12,7 @@ export class TradeForecastService {
   constructor(
     @InjectRepository(TradeForecastEntity)
     private readonly tradeForecastRepository: Repository<TradeForecastEntity>,
-    private readonly buildTrainDataDTO: BuildTrainDataDTO
+    private readonly tradeUtils: TradeUtilsDTO
   ) { }
 
   async getPreview(inputData: TradePreviewDTO): Promise<Object> {
@@ -28,21 +27,17 @@ export class TradeForecastService {
 
     if (!results.length) return { msg: 'No data found' };
 
-    let rawData = await this.buildTrainDataDTO.buildData(results);
-    const scaledData = rawData.map(v => this.buildTrainDataDTO.scaleDown(v));
+    let rawData = await this.tradeUtils.buildData(results);
+    const scaledData = rawData.map(v => this.tradeUtils.scaleDown(v));
 
-    let trainingData = [];
-    const chunk = 5;
-    for (let i = 0, j = scaledData.length; i < j; i += chunk) {
-      trainingData.push(scaledData.slice(i, i + chunk));
-    }
+    let trainingData = this.tradeUtils.chunkArray(scaledData);
 
     net.train(trainingData, {
       learningRate: 0.005,
       errorThresh: 0.02
     });
 
-    const checkData = this.buildTrainDataDTO.scaleDown({
+    const checkData = this.tradeUtils.scaleDown({
       open: inputData.open,
       high: inputData.high,
       low: inputData.low,
@@ -51,7 +46,7 @@ export class TradeForecastService {
       ma2_value: inputData.ma2_value
     });
 
-    return this.buildTrainDataDTO.scaleUp(net.run([checkData]), rawData[0]);
+    return this.tradeUtils.scaleUp(net.run([checkData]), rawData[0]);
   }
 
   async getForecast(): Promise<Object> {
@@ -65,14 +60,9 @@ export class TradeForecastService {
 
     if (!results.length) return { msg: 'No data found' };
 
-    let trainingData = [];
-    let rawData = await this.buildTrainDataDTO.buildData(results);
-    const scaledData = rawData.map(v => this.buildTrainDataDTO.scaleDown(v));
-
-    const chunk = 5;
-    for (let i = 0, j = scaledData.length; i < j; i += chunk) {
-      trainingData.push(scaledData.slice(i, i + chunk));
-    }
+    let rawData = await this.tradeUtils.buildData(results);
+    const scaledData = rawData.map(v => this.tradeUtils.scaleDown(v));
+    let trainingData = this.tradeUtils.chunkArray(scaledData);
 
     net.train(trainingData, {
       learningRate: 0.005,
@@ -82,7 +72,7 @@ export class TradeForecastService {
     return net.forecast<Array<any>>([
       trainingData[0][0],
       trainingData[0][1],
-    ], 3).map(v => this.buildTrainDataDTO.scaleUp(v, rawData[0]));
+    ], 3).map(v => this.tradeUtils.scaleUp(v, rawData[0]));
 
   }
 
