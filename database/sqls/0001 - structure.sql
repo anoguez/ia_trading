@@ -33,7 +33,7 @@ CREATE TABLE `trade_forecast` (
   `high` DECIMAL(20,5) NOT NULL,
   `low` DECIMAL(20,5) NOT NULL,
   `close` DECIMAL(20,5) NOT NULL,
-  `graphic_time` ENUM('1M', '5M', '10M', '12M', '15M', '30M', '1H', '3H', '8H', '1D') NOT NULL,
+  `graphic_time` ENUM('NONE','1M','2M','3M','4M','5M',"M6","M10","M12","M15","M20","M30","H1","H2","H3","H4","H6","H8","H12","D1","W1","MN1") NOT NULL,
   `ma1_value` DECIMAL(20,5) NOT NULL,
   `ma2_value` DECIMAL(20,5) NOT NULL,
   PRIMARY KEY (`id`)

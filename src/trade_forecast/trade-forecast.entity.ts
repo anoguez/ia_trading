@@ -14,8 +14,8 @@ export class TradeForecastEntity {
   @Column()
   date: Date;
 
-  @IsEnum(GraphicTimeEnum)
-  graphic_time: GraphicTimeEnum;
+  @Column()
+  graphic_time: string;
 
   @Column()
   @IsNumber()
