@@ -40,5 +40,9 @@ export class TradeForecastEntity {
   @Column()
   @IsNumber()
   ma2_value: number;
+  
+  @Column()
+  @IsNumber()
+  volume: number;
 
 }

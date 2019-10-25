@@ -15,7 +15,7 @@ export class TradeForecastController {
   }
  
   @Post("forecast")
-  getForecast(): Promise<Object> {
+  getForecast(): Promise<Object[]> {
     return this.service.getForecast();
   }
 

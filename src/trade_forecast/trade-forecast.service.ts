@@ -23,7 +23,7 @@ export class TradeForecastService {
       hiddenLayers: [12, 12]
     });
 
-    let results = await this.tradeForecastRepository.find();
+    let results = await this.tradeForecastRepository.find({ order: { date: "DESC" }});
 
     if (!results.length) return { msg: 'No data found' };
 
@@ -43,22 +43,26 @@ export class TradeForecastService {
       low: inputData.low,
       close: inputData.close,
       ma1_value: inputData.ma1_value,
-      ma2_value: inputData.ma2_value
+      ma2_value: inputData.ma2_value,
+      volume: inputData.volume
     });
 
     return this.tradeUtils.scaleUp(net.run([checkData]), rawData[0]);
   }
 
-  async getForecast(): Promise<Object> {
+  async getForecast(): Promise<Object[]> {
     const net = new BrainJsLib().getRecurrentLSTMTimeStep({
       inputSize: 6,
       outputSize: 6,
-      hiddenLayers: [12, 12]
+      hiddenLayers: [6, 6]
     });
 
-    let results = await this.tradeForecastRepository.find();
+    let results = await this.tradeForecastRepository.find({ 
+      order: { date: "DESC" },
+      take: 20
+    });
 
-    if (!results.length) return { msg: 'No data found' };
+    if (!results.length) throw new Error('No data found');
 
     let rawData = await this.tradeUtils.buildData(results);
     const scaledData = rawData.map(v => this.tradeUtils.scaleDown(v));
@@ -72,7 +76,7 @@ export class TradeForecastService {
     return net.forecast<Array<any>>([
       trainingData[0][0],
       trainingData[0][1],
-    ], 3).map(v => this.tradeUtils.scaleUp(v, rawData[0]));
+    ], 4).map(v => this.tradeUtils.scaleUp(v, rawData[0]));
 
   }
 

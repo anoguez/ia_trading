@@ -41,6 +41,10 @@ export class TradeSaveDataDTO {
   @Type(() => Number)
   @IsNumber()
   readonly ma2_value: number;
+  
+  @Type(() => Number)
+  @IsNumber()
+  readonly volume: number;
 }
 
 export class TradeForecastInput {
@@ -51,6 +55,7 @@ export class TradeForecastInput {
   close: number;
   ma1_value: number;
   ma2_value: number;
+  volume: number;
 
   constructor(input: TradeForecastEntity) {
     this.open = Number(input.open);
@@ -59,6 +64,7 @@ export class TradeForecastInput {
     this.close = Number(input.close);
     this.ma1_value = Number(input.ma1_value);
     this.ma2_value = Number(input.ma2_value);
+    this.volume = Number(input.volume);
   }
 
   //  { open: number, high: number, low: number, close: number}
@@ -69,7 +75,8 @@ export class TradeForecastInput {
       low: this.low,
       close: this.close,
       ma1_value: this.ma1_value,
-      ma2_value: this.ma2_value
+      ma2_value: this.ma2_value,
+      volume: this.volume,
     };
   }
 }

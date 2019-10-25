@@ -33,4 +33,8 @@ export class TradePreviewDTO {
   @Type(() => Number)
   @IsNumber()
   readonly ma2_value: number;
+  
+  @Type(() => Number)
+  @IsNumber()
+  readonly volume: number;
 }
